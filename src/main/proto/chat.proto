@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package com.salesforce.servicelibs;
+
+option java_package = "com.salesforce.servicelibs";
+option java_outer_classname = "ChatProto";
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// https://github.com/salesforce/reactive-grpc/blob/master/demos/reactive-grpc-chat/reactor-chat/ReactorChat-Server/src/main/proto/Chat.proto
+service Chat {
+    rpc PostMessage (ChatMessage) returns (google.protobuf.Empty) {
+    }
+    rpc GetMessages (google.protobuf.Empty) returns (stream ChatMessage) {
+    }
+}
+
+message ChatMessage {
+    google.protobuf.Timestamp when = 1;
+    string author = 2;
+    string message = 3;
+}
